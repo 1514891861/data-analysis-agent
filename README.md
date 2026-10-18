@@ -108,18 +108,37 @@ streamlit run frontend/app.py --server.port 8501  # 终端 2：前端
 
 ```text
 data_analysis_agent/
-├── api.py               # FastAPI 后端：/chat、文件上传、会话管理
-├── main.py              # LangGraph 工作流装配
-├── config.py            # 环境变量配置
+├── api.py                   # FastAPI 后端：/chat、文件上传、会话管理
+├── main.py                  # LangGraph 工作流装配（build_graph）
+├── config.py                # 环境变量配置
+├── run_eval.py              # 一键跑评测（配合 evaluation/）
+├── requirements.txt         # 依赖清单
+├── Dockerfile               # 镜像构建（CPU 版 torch + 中文字体）
+├── docker-compose.yml       # 双容器编排：backend 8001 / frontend 8501
+├── .streamlit/config.toml   # 前端主题配色
+├── agent_workflow.mmd       # 工作流 Mermaid 源文件
 ├── agents/
-│   ├── graph.py         # 工作流拓扑
-│   └── nodes/           # planner / coder / reviewer / executor / repair / visualizer / reporter
-├── sandbox/             # 受限执行器：AST 危险调用拦截 + 超时/内存限制
-├── retrieval/           # RAG：BGE-M3 向量化 + ChromaDB 知识库
-├── frontend/app.py      # Streamlit 聊天界面（历史会话 / 多格式上传）
-├── evaluation/          # 评测数据集与指标（run_eval.py 一键跑分）
-├── tests/               # 单元测试
-└── data/                # 运行时数据：input / charts / reports（自动创建）
+│   ├── graph.py             # 工作流拓扑
+│   ├── state.py             # 全局状态（AgentState）定义
+│   └── nodes/
+│       ├── agent.py         # 自主 ReAct 模式节点
+│       ├── planner.py       # 数据解读与分析规划
+│       ├── coder.py         # 生成 pandas/matplotlib 分析代码
+│       ├── reviewer.py      # 代码安全与正确性审查
+│       ├── executor.py      # 调用沙箱执行
+│       ├── repair.py        # 带报错信息自动修复重试
+│       ├── visualizer.py    # 图表生成
+│       └── reporter.py      # 汇总输出 HTML 报告
+├── sandbox/executor.py      # 受限执行器：AST 危险调用拦截 + 超时/内存限制
+├── retrieval/
+│   ├── retrievalembeddings.py    # BGE-M3 文本向量化
+│   └── retrievalvectorstore.py   # ChromaDB 知识库读写
+├── frontend/app.py          # Streamlit 聊天界面（历史会话 / 多格式上传）
+├── evaluation/
+│   ├── dataset.py           # 评测用例集
+│   └── metrics.py           # 评测指标与执行器
+├── tests/                   # 单元测试：test_agent / test_executor / test_sandbox
+└── data/                    # 运行时数据：input / charts / reports（自动创建）
 ```
 
 ## 🙏 致谢
