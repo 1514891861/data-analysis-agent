@@ -1,0 +1,7 @@
+# Streamlit 主题配置：启动时加载，改动后需重启 streamlit
+[theme]
+base = "light"
+primaryColor = "#2563eb"          # 主色：蓝色（默认是红色，所有按钮/聚焦边框/发送键都跟它走）
+backgroundColor = "#f7f8fa"       # 页面底色
+secondaryBackgroundColor = "#ffffff"  # 侧边栏/输入框/展开面板的底色
+textColor = "#1f2328"

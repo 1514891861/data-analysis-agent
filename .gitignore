@@ -1,0 +1,44 @@
+venv/
+langgraph_env/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# LangGraph checkpoint
+checkpoints.db
+*.sqlite3
+
+# RAG 向量库
+data/chroma_db/
+
+# 生成产物（保留 input 数据）
+data/charts/*
+data/reports/*
+!data/input/*
+!data/charts/.gitkeep
+!data/reports/.gitkeep
+
+# 评测结果
+evaluation_result.json
+
+# IDE
+.vscode/
+.idea/
+*.egg-info/
+dist/
+build/
+.DS_Store
+
+# LangSmith
+langsmith.log*
+
+# 运行时会话数据库（聊天记录，绝不公开）
+data/*.db
+
+# 缓存与临时脚本
+.pytest_cache/
+_*.py
+
+# HF 模型缓存（compose 可移植配置的默认目录，~2GB 不进仓库）
+hf_cache/

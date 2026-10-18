@@ -1,0 +1,19 @@
+# 密钥绝不进镜像（由 compose env_file 在运行时注入）
+.env
+
+# 本地环境与缓存
+langgraph_env/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+
+# 数据和数据库由 volumes 挂载，不打包进镜像
+data/
+*.db
+*.mmd
+
+# 临时/调试文件
+_tmp/
+agent_workflow.mmd
+_test*.py
